@@ -25,9 +25,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.center}>
-        <Odai />
-      </div>
+      <Odai />
     </main>
   );
 }
