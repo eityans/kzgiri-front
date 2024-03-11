@@ -32,6 +32,8 @@ export const Odai: React.FC<{ id: number }> = ({ id }) => {
   if (!data) {
     return <>loading...</>;
   }
+
+  console.log(data);
   return (
     <Container maxWidth="lg">
       <Paper elevation={4} sx={{ padding: 4, marginY: 2 }}>
@@ -39,6 +41,13 @@ export const Odai: React.FC<{ id: number }> = ({ id }) => {
           {data.text}
         </Typography>
       </Paper>
+      {data.answers.map((answer) => {
+        return (
+          <>
+            {answer.text} by {answer.userName}
+          </>
+        );
+      })}
     </Container>
   );
 };
