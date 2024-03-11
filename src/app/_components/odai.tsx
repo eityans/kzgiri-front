@@ -2,9 +2,11 @@
 
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
+
+import { Button } from "@mui/material";
 
 export type Theme = {
   id: number;
@@ -22,6 +24,8 @@ type Answer = {
 
 export const Odai: React.FC<{ id: number }> = ({ id }) => {
   const [data, setData] = useState<Theme | null>(null);
+  const [answer, setAnswer] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_API_URL + "/themes/" + id)
@@ -48,15 +52,49 @@ export const Odai: React.FC<{ id: number }> = ({ id }) => {
           </>
         );
       })}
+      <TextField
+        id="answer"
+        label="回答"
+        variant="filled"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setAnswer(event.target.value);
+        }}
+        value={answer}
+      />
+      <TextField
+        id="name"
+        label="名前"
+        variant="filled"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setName(event.target.value);
+        }}
+        value={name}
+      />
+      <Button
+        variant="outlined"
+        size="small"
+        onClick={() => {
+          console.log(answer);
+          fetch(
+            process.env.NEXT_PUBLIC_API_URL + "/themes/" + id + "/answers",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                text: answer,
+                userName: name,
+              }),
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+        }}
+        style={{ width: "100%" }}
+      >
+        送信
+      </Button>
     </Container>
   );
 };
-
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-  width: "100%",
-  padding: 60,
-  lineHeight: "60px",
-}));
