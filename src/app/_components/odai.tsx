@@ -6,12 +6,11 @@ export const Odai: React.FC = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos/1")
+    fetch(process.env.NEXT_PUBLIC_API_URL + "/todos/1")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
 
-  console.log(data);
   if (!data) {
     return <>loading...</>;
   }
