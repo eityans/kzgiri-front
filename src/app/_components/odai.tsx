@@ -6,8 +6,22 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 
+export type Theme = {
+  id: number;
+  text: string;
+  releasedAt: string;
+  answers: Answer[];
+};
+
+type Answer = {
+  id: number;
+  text: string;
+  userName: string;
+  createdAt: string;
+};
+
 export const Odai: React.FC<{ id: number }> = ({ id }) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<Theme | null>(null);
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_API_URL + "/themes/" + id)

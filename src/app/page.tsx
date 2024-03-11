@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Odai } from "./_components/odai";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -24,8 +23,6 @@ export default function Home() {
           </a>
         </div>
       </div>
-
-      <Odai />
     </main>
   );
 }
