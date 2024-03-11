@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
 import { Button } from "@mui/material";
+import Link from "next/link";
 
 export type Theme = {
   id: number;
@@ -37,7 +38,6 @@ export const Odai: React.FC<{ id: number }> = ({ id }) => {
     return <>loading...</>;
   }
 
-  console.log(data);
   return (
     <Container maxWidth="lg">
       <Paper elevation={4} sx={{ padding: 4, marginY: 2 }}>
@@ -95,6 +95,7 @@ export const Odai: React.FC<{ id: number }> = ({ id }) => {
       >
         送信
       </Button>
+      <Link href="/">戻る</Link>
     </Container>
   );
 };
