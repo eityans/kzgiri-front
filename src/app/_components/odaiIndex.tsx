@@ -58,7 +58,7 @@ export const OdaiIndex: React.FC = () => {
           variant="outlined"
           size="small"
           onClick={() => {
-            console.log(dateTime.toString());
+            console.log(dateTime.format("YYYY-MM-DDTHH:mm:ss"));
             fetch(process.env.NEXT_PUBLIC_API_URL + "/themes", {
               method: "POST",
               headers: {
@@ -66,7 +66,7 @@ export const OdaiIndex: React.FC = () => {
               },
               body: JSON.stringify({
                 text: theme,
-                releasedAt: dateTime.format("{YYYY} MM-DDTHH:mm:ss SSS [Z] A"), //API側で時刻がパースできていない気がする
+                releasedAt: dateTime.format("YYYY-MM-DDTHH:mm:ss"),
               }),
             })
               .then((response) => response.json())
