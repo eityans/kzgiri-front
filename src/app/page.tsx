@@ -1,8 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import { OdaiIndex } from "./_components/odaiIndex";
 import styles from "./page.module.css";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { SignInUpButton, SignOutButton } from "./_components/SignInUpButtons";
+import React from "react";
 
 export default function Home() {
+  const { user, error, isLoading } = useUser();
+
+  React.useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -24,7 +35,9 @@ export default function Home() {
           </a>
         </div>
       </div>
+      {user === undefined && <SignInUpButton />}
       <OdaiIndex />
+      {user !== undefined && <SignOutButton />}
     </main>
   );
 }
