@@ -1,14 +1,19 @@
+"use client";
+
 import React from "react";
 import { Button } from "@mui/material";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const SignInUpButton: React.FC = () => {
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <Button
       style={{ textTransform: "none" }}
       variant="contained"
       color="success"
       onClick={() => {
-        location.href = "/api/auth/login";
+        loginWithRedirect();
       }}
       fullWidth
     >
@@ -18,13 +23,15 @@ export const SignInUpButton: React.FC = () => {
 };
 
 export const SignOutButton: React.FC = () => {
+  const { logout } = useAuth0();
+
   return (
     <Button
       style={{ textTransform: "none" }}
       variant="contained"
       color="error"
       onClick={() => {
-        location.href = "/api/auth/logout";
+        logout();
       }}
       fullWidth
     >

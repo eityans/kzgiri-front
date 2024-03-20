@@ -3,15 +3,20 @@
 import Image from "next/image";
 import { OdaiIndex } from "./_components/odaiIndex";
 import styles from "./page.module.css";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useAuth0 } from "@auth0/auth0-react";
 import { SignInUpButton, SignOutButton } from "./_components/SignInUpButtons";
 import React from "react";
 
 export default function Home() {
-  const { user, error, isLoading } = useUser();
+  const { user, getAccessTokenSilently } = useAuth0();
 
   React.useEffect(() => {
-    console.log(user);
+    if (user !== undefined) {
+      console.log(user);
+      getAccessTokenSilently().then((token) => {
+        console.log(token);
+      });
+    }
   }, [user]);
 
   return (
